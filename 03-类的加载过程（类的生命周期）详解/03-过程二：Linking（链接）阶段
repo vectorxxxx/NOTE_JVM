@@ -92,7 +92,7 @@ Java并不支持boolean类型，对于boolean类型，内部实现是int，由�
 invokevirtual #24 <java/io/PrintStream.println>
 ```
 
-![image-20210430225015932](C:/Users/Archimedes/AppData/Roaming/Typora/typora-user-images/image-20210430225015932.png)
+![image-20210430225015932](https://gitee.com/vectorx/ImageCloud/raw/master/img/20210501001938.png)
 
 以方法为例，Java虚拟机为每个类都准备了一张方法表，将其所有的方法都列在表中，当需要调用一个类的方法的时候，只要知道这个方法在方法表中的偏移量就可以直接调用该方法。<font color='red'>通过解析操作，符号引用就可以转变为目标方法在类中方法表中的位置，从而使得方法被成功调用。</font>
 
