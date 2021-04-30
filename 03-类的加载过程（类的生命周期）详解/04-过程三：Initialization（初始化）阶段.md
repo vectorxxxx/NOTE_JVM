@@ -48,7 +48,7 @@ Java程序对类的使用分为两种：主动使用和被动使用。
 
 Class只有在必须要首次使用的时候才会被装载，Java虚拟机不会无条件地装载Class类型。Java虚拟机规定，一个类或接口在初次使用前，必须要进行初始化。这里指的“使用”，是指主动使用，主动使用只有下列几种情况：（即：如果出现如下的情况，则会对类进行初始化操作。而初始化操作之前的加载、验证、准备已经完成。
 
-1. ==实例化==：当创建一个类的实例时，比如使用new关键字，或者通过反射、克隆、反序列化。
+1. <mark>实例化</mark>：当创建一个类的实例时，比如使用new关键字，或者通过反射、克隆、反序列化。
 
    ```java
    /**
@@ -93,9 +93,9 @@ Class只有在必须要首次使用的时候才会被装载，Java虚拟机不�
    }
    ```
 
-2. ==静态方法==：当调用类的静态方法时，即当使用了字节码invokestatic指令。
+2. <mark>静态方法<mark>：当调用类的静态方法时，即当使用了字节码invokestatic指令。
 
-3. ==静态字段==：当使用类、接口的静态字段时（final修饰特殊考虑），比如，使用getstatic或者putstatic指令。（对应访问变量、赋值变量操作）
+3. <mark>静态字段<mark>：当使用类、接口的静态字段时（final修饰特殊考虑），比如，使用getstatic或者putstatic指令。（对应访问变量、赋值变量操作）
 
    ```java
    public class ActiveUse {
@@ -113,9 +113,9 @@ Class只有在必须要首次使用的时候才会被装载，Java虚拟机不�
    }
    ```
 
-4. ==反射==：当使用java.lang.reflect包中的方法反射类的方法时。比如：Class.forName("com.atguigu.java.Test")
+4. <mark>反射<mark>：当使用java.lang.reflect包中的方法反射类的方法时。比如：Class.forName("com.atguigu.java.Test")
 
-5. ==继承==：当初始化子类时，如果发现其父类还没有进行过初始化，则需要先触发其父类的初始化。
+5. <mark>继承<mark>：当初始化子类时，如果发现其父类还没有进行过初始化，则需要先触发其父类的初始化。
 
    > 当Java虚拟机初始化一个类时，要求它的所有父类都已经被初始化，但是这条规则并不适用于接口。
    >
@@ -123,7 +123,7 @@ Class只有在必须要首次使用的时候才会被装载，Java虚拟机不�
    > - 在初始化一个接口时，并不会先初始化它的父接口
    > - 因此，一个父接口并不会因为它的子接口或者实现类的初始化而初始化。只有当程序首次使用特定接口的静态字段时，才会导致该接口的初始化。
 
-6. ==default方法==：如果一个接口定义了default方法，那么直接实现或者间接实现该接口的类的初始化，该接口要在其之前被初始化。
+6. <mark>default方法<mark>：如果一个接口定义了default方法，那么直接实现或者间接实现该接口的类的初始化，该接口要在其之前被初始化。
 
    ```java
    interface Compare {
@@ -135,11 +135,11 @@ Class只有在必须要首次使用的时候才会被装载，Java虚拟机不�
    }
    ```
 
-7. ==main方法==：当虚拟机启动时，用户需要指定一个要执行的主类（包含main()方法的那个类），虚拟机会先初始化这个主类。
+7. <mark>main方法<mark>：当虚拟机启动时，用户需要指定一个要执行的主类（包含main()方法的那个类），虚拟机会先初始化这个主类。
 
    > VM启动的时候通过引导类加载器加载一个初始类。这个类在调用public static void main(String[])方法之前被链接和初始化。这个方法的执行将依次导致所需的类的加载，链接和初始化。
 
-8. ==MethodHandle==：当初次调用MethodHandle实例时，初始化该MethodHandle指向的方法所在的类。（涉及解析REF getStatic、REF_putStatic、REF invokeStatic方法句柄对应的类）
+8. <mark>MethodHandle<mark>：当初次调用MethodHandle实例时，初始化该MethodHandle指向的方法所在的类。（涉及解析REF getStatic、REF_putStatic、REF invokeStatic方法句柄对应的类）
 
 **被动使用**
 
@@ -147,7 +147,7 @@ Class只有在必须要首次使用的时候才会被装载，Java虚拟机不�
 
 也就是说：<font color='red'>并不是在代码中出现的类，就一定会被加载或者初始化。</font>如果不符合主动使用的条件，类就不会初始化。
 
-1. ==静态字段==：当通过子类引用父类的静态变量，不会导致子类初始化，只有真正声明这个字段的类才会被初始化。
+1. <mark>静态字段<mark>：当通过子类引用父类的静态变量，不会导致子类初始化，只有真正声明这个字段的类才会被初始化。
 
    ```java
    public class PassiveUse {
@@ -172,7 +172,7 @@ Class只有在必须要首次使用的时候才会被装载，Java虚拟机不�
    }
    ```
 
-2. ==数组定义==：通过数组定义类引用，不会触发此类的初始化
+2. <mark>数组定义<mark>：通过数组定义类引用，不会触发此类的初始化
 
    ```java
    Parent[] parents= new Parent[10];
@@ -181,7 +181,7 @@ Class只有在必须要首次使用的时候才会被装载，Java虚拟机不�
    parents[0] = new Parent();
    ```
 
-3. ==引用常量==：引用常量不会触发此类或接口的初始化。因为常量在链接阶段就已经被显式赋值了。
+3. <mark>引用常量<mark>：引用常量不会触发此类或接口的初始化。因为常量在链接阶段就已经被显式赋值了。
 
    ```java
    public class PassiveUse {
@@ -204,7 +204,7 @@ Class只有在必须要首次使用的时候才会被装载，Java虚拟机不�
    }
    ```
 
-4. ==loadClass方法==：调用ClassLoader类的loadClass()方法加载一个类，并不是对类的主动使用，不会导致类的初始化。
+4. <mark>loadClass方法</mark>：调用ClassLoader类的loadClass()方法加载一个类，并不是对类的主动使用，不会导致类的初始化。
 
    ```java
    Class clazz = ClassLoader.getSystemClassLoader().loadClass("com.test.java.Person");
