@@ -1,3 +1,13 @@
+> 笔记来源：[尚硅谷JVM全套教程，百万播放，全网巅峰（宋红康详解java虚拟机）](https://www.bilibili.com/video/BV1PJ411n7xZ "尚硅谷JVM全套教程，百万播放，全网巅峰（宋红康详解java虚拟机）")
+>
+> 同步更新：https://gitee.com/vectorx/NOTE_JVM
+>
+> https://codechina.csdn.net/qq_35925558/NOTE_JVM
+>
+> https://github.com/uxiahnan/NOTE_JVM
+
+[toc]
+
 # 补充：使用OQL语言查询对象信息
 
 MAT支持一种类似于SQL的查询语言OQL（Object Query Language）。OQL使用类SQL语法，可以在堆中进行对象的查找和筛选。
