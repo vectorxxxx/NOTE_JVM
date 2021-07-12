@@ -1,4 +1,4 @@
-> 笔记来源：[尚硅谷JVM全套教程，百万播放，全网巅峰（宋红康详解java虚拟机）](https://www.bilibili.com/video/BV1PJ411n7xZ "尚硅谷JVM全套教程，百万播放，全网巅峰（宋红康详解java虚拟机）")
+> 笔记来源：[尚硅谷 JVM 全套教程，百万播放，全网巅峰（宋红康详解 java 虚拟机）](https://www.bilibili.com/video/BV1PJ411n7xZ "尚硅谷JVM全套教程，百万播放，全网巅峰（宋红康详解java虚拟机）")
 >
 > 同步更新：https://gitee.com/vectorx/NOTE_JVM
 >
@@ -8,9 +8,9 @@
 
 [toc]
 
-# 4. JVM运行时参数
+# 4. JVM 运行时参数
 
-## 4.1. JVM参数选项
+## 4.1. JVM 参数选项
 
 官网地址：[https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html)
 
@@ -70,18 +70,18 @@
 有关详细信息, 请参阅 http://www.oracle.com/technetwork/java/javase/documentation/index.html。
 ```
 
-**Server模式和Client模式**
+**Server 模式和 Client 模式**
 
-Hotspot JVM有两种模式，分别是server和client，分别通过-server和-client模式设置
+Hotspot JVM 有两种模式，分别是 server 和 client，分别通过-server 和-client 模式设置
 
-- 32位系统上，默认使用Client类型的JVM。要想使用Server模式，机器配置至少有2个以上的CPU和2G以上的物理内存。client模式适用于对内存要求较小的桌面应用程序，默认使用Serial串行垃圾收集器
-- 64位系统上，只支持server模式的JVM，适用于需要大内存的应用程序，默认使用并行垃圾收集器
+- 32 位系统上，默认使用 Client 类型的 JVM。要想使用 Server 模式，机器配置至少有 2 个以上的 CPU 和 2G 以上的物理内存。client 模式适用于对内存要求较小的桌面应用程序，默认使用 Serial 串行垃圾收集器
+- 64 位系统上，只支持 server 模式的 JVM，适用于需要大内存的应用程序，默认使用并行垃圾收集器
 
 官网地址：[https://docs.oracle.com/javase/8/docs/technotes/guides/vm/server-class.html](https://docs.oracle.com/javase/8/docs/technotes/guides/vm/server-class.html)
 
 如何知道系统默认使用的是那种模式呢？
 
-通过java -version命令：可以看到Server VM字样，代表当前系统使用是Server模式
+通过 java -version 命令：可以看到 Server VM 字样，代表当前系统使用是 Server 模式
 
 ```shell
 > java -version
@@ -90,7 +90,7 @@ Java(TM) SE Runtime Environment (build 1.8.0_201-b09)
 Java HotSpot(TM) 64-Bit Server VM (build 25.201-b09, mixed mode)
 ```
 
-### 4.1.2. 类型二：-X参数选项
+### 4.1.2. 类型二：-X 参数选项
 
 ```shell
 > java -X
@@ -129,37 +129,37 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.201-b09, mixed mode)
 -X 选项是非标准选项, 如有更改, 恕不另行通知。
 ```
 
-如何知道JVM默认使用的是混合模式呢？
+如何知道 JVM 默认使用的是混合模式呢？
 
-同样地，通过java -version命令：可以看到 mixed mode 字样，代表当前系统使用的是混合模式
+同样地，通过 java -version 命令：可以看到 mixed mode 字样，代表当前系统使用的是混合模式
 
-### 4.1.3. 类型三：-XX参数选项
+### 4.1.3. 类型三：-XX 参数选项
 
-**Boolean类型格式**
+**Boolean 类型格式**
 
 ```shell
 -XX:+<option>  启用option属性
 -XX:-<option>  禁用option属性
 ```
 
-**非Boolean类型格式**
+**非 Boolean 类型格式**
 
 ```shell
 -XX:<option>=<number>  设置option数值，可以带单位如k/K/m/M/g/G
 -XX:<option>=<string>  设置option字符值
 ```
 
-## 4.2. 添加JVM参数选项
+## 4.2. 添加 JVM 参数选项
 
-eclipse和idea中配置不必多说，在Run Configurations中VM Options中配置即可，大同小异
+eclipse 和 idea 中配置不必多说，在 Run Configurations 中 VM Options 中配置即可，大同小异
 
-**运行jar包**
+**运行 jar 包**
 
 ```shell
 java -Xms100m -Xmx100m -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -jar demo.jar
 ```
 
-**Tomcat运行war包**
+**Tomcat 运行 war 包**
 
 ```shell
 # linux下catalina.sh添加
@@ -177,9 +177,9 @@ jinfo -flag [+|-]<name> <pid>
 jinfo -flag <name>=<value> <pid>
 ```
 
-## 4.3. 常用的JVM参数选项
+## 4.3. 常用的 JVM 参数选项
 
-### 4.3.1. 打印设置的XX选项及值
+### 4.3.1. 打印设置的 XX 选项及值
 
 ```shell
 -XX:+PrintCommandLineFlags 程序运行时JVM默认设置或用户手动设置的XX选项
@@ -216,7 +216,7 @@ jinfo -flag <name>=<value> <pid>
 -XX:MaxDirectMemorySize 指定DirectMemory容量，默认等于Java堆最大值
 ```
 
-### 4.3.3. OutOfMemory相关的选项
+### 4.3.3. OutOfMemory 相关的选项
 
 ```shell
 -XX:+HeapDumpOnOutMemoryError 内存出现OOM时生成Heap转储文件，两者互斥
@@ -229,11 +229,11 @@ jinfo -flag <name>=<value> <pid>
 
 首先需了解垃圾收集器之间的搭配使用关系
 
-- 红色虚线表示在jdk8时被Deprecate，jdk9时被删除
-- 绿色虚线表示在jdk14时被Deprecate
-- 绿色虚框表示在jdk9时被Deprecate，jdk14时被删除
+- 红色虚线表示在 jdk8 时被 Deprecate，jdk9 时被删除
+- 绿色虚线表示在 jdk14 时被 Deprecate
+- 绿色虚框表示在 jdk9 时被 Deprecate，jdk14 时被删除
 
-![image-20210506182458663](https://gitee.com/vectorx/ImageCloud/raw/master/img/20210506182504.png)
+![image-20210506182458663](https://img-blog.csdnimg.cn/img_convert/46dec5b346fcc5b147491481787ea8ec.png)
 
 ```shell
 # Serial回收器
@@ -245,10 +245,10 @@ jinfo -flag <name>=<value> <pid>
 ```
 
 $$
-ParallelGCThreads = 
-\begin{cases} 
-CPU\_Count & \text (CPU\_Count <= 8) \\ 
-3 + (5 * CPU＿Count / 8) & \text (CPU\_Count > 8) 
+ParallelGCThreads =
+\begin{cases}
+CPU\_Count & \text (CPU\_Count <= 8) \\
+3 + (5 * CPU＿Count / 8) & \text (CPU\_Count > 8)
 \end{cases}
 $$
 
@@ -293,7 +293,7 @@ $$
 -XX:+ExplicitGCInvokesConcurrent
 -XX:+ExplicitGCInvokesConcurrentAndUnloadsClasses
 	这两个参数用户指定hotspot虚拟在执行System.gc()时使用CMS周期
--XX:+CMSPrecleaningEnabled  指定CMS是否需要进行Pre cleaning阶段	
+-XX:+CMSPrecleaningEnabled  指定CMS是否需要进行Pre cleaning阶段
 ```
 
 ```shell
@@ -312,18 +312,18 @@ $$
 
 怎么选择垃圾回收器？
 
-- 优先让JVM自适应，调整堆的大小
-- 串行收集器：内存小于100M；单核、单机程序，并且没有停顿时间的要求
-- 并行收集器：多CPU、高吞吐量、允许停顿时间超过1秒
-- 并发收集器：多CPU、追求低停顿时间、快速响应（比如延迟不能超过1秒，如互联网应用）
-- 官方推荐G1，性能高。现在互联网的项目，基本都是使用G1
+- 优先让 JVM 自适应，调整堆的大小
+- 串行收集器：内存小于 100M；单核、单机程序，并且没有停顿时间的要求
+- 并行收集器：多 CPU、高吞吐量、允许停顿时间超过 1 秒
+- 并发收集器：多 CPU、追求低停顿时间、快速响应（比如延迟不能超过 1 秒，如互联网应用）
+- 官方推荐 G1，性能高。现在互联网的项目，基本都是使用 G1
 
 特别说明：
 
 - 没有最好的收集器，更没有万能的收集器
 - 调优永远是针对特定场景、特定需求，不存在一劳永逸的收集器
 
-### 4.3.5. GC日志相关选项
+### 4.3.5. GC 日志相关选项
 
 ```shell
 -XX:+PrintGC <==> -verbose:gc  打印简要日志信息
@@ -334,7 +334,7 @@ $$
 -Xloggc:<file> 输出GC导指定路径下的文件中
 ```
 
-![image-20210506195156935](https://gitee.com/vectorx/ImageCloud/raw/master/img/20210506195202.png)
+![image-20210506195156935](https://img-blog.csdnimg.cn/img_convert/9f323dd9b55235ed0a33e6a0af8adbca.png)
 
 ```shell
 -XX:+TraceClassLoading  监控类的加载
@@ -357,14 +357,14 @@ $$
 -XX:+UseBiasedLocking  开启偏向锁
 -XX:+UseLargePages  开启使用大页面
 -XX:+PrintTLAB  打印TLAB的使用情况
--XX:TLABSize  设置TLAB大小  
+-XX:TLABSize  设置TLAB大小
 ```
 
-## 4.4. 通过Java代码获取JVM参数
+## 4.4. 通过 Java 代码获取 JVM 参数
 
-Java提供了java.lang.management包用于监视和管理Java虚拟机和Java运行时中的其他组件，它允许本地或远程监控和管理运行的Java虚拟机。其中ManagementFactory类较为常用，另外Runtime类可获取内存、CPU核数等相关的数据。通过使用这些api，可以监控应用服务器的堆内存使用情况，设置一些阈值进行报警等处理。
+Java 提供了 java.lang.management 包用于监视和管理 Java 虚拟机和 Java 运行时中的其他组件，它允许本地或远程监控和管理运行的 Java 虚拟机。其中 ManagementFactory 类较为常用，另外 Runtime 类可获取内存、CPU 核数等相关的数据。通过使用这些 api，可以监控应用服务器的堆内存使用情况，设置一些阈值进行报警等处理。
 
-```
+```java
 public class MemoryMonitor {
     public static void main(String[] args) {
         MemoryMXBean memorymbean = ManagementFactory.getMemoryMXBean();
@@ -384,4 +384,3 @@ public class MemoryMonitor {
     }
 }
 ```
-

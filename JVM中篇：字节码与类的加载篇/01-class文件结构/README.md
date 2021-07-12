@@ -9,6 +9,7 @@
 [toc]
 
 # 1. Class文件结构
+
  ## 1.1. Class字节码文件结构
 
 <table>
@@ -144,6 +145,7 @@
    <tbody> 
 </table>
 
+
 ## 1.2. Class文件数据类型
 
 | 数据类型 | 定义                                                         | 说明                                                         |
@@ -198,6 +200,7 @@ Java的版本号是从45开始的，JDK1.1之后的每个JDK大版本发布主�
 <mark>不同版本的Java编译器编译的Class文件对应的版本是不一样的。目前，高版本的Java虚拟机可以执行由低版本编译器生成的Class文件，但是低版本的Java虚拟机不能执行由高版本编译器生成的Class文件。否则JVM会抛出java.lang.UnsupportedClassVersionError异常。（向下兼容）</mark>
 
 在实际应用中，由于开发环境和生产环境的不同，可能会导致该问题的发生。因此，需要我们在开发时，特别注意开发编译的JDK版本和生产环境中的JDK版本是否一致。
+
 - 虚拟机JDK版本为1.k（k>=2）时，对应的class文件格式版本号的范围为45.0 - 44+k.0（含两端）。
 
 ## 1.5. 常量池集合
@@ -206,7 +209,7 @@ Java的版本号是从45开始的，JDK1.1之后的每个JDK大版本发布主�
 
 随着Java虚拟机的不断发展，常量池的内容也日渐丰富。可以说，常量池是整个Class文件的基石。
 
-![image-20210508233536076](https://gitee.com/vectorx/ImageCloud/raw/master/img/20210508233538.png)
+![image-20210508233536076](https://img-blog.csdnimg.cn/img_convert/5c2a8d904287373990cffe9b82428daa.png)
 
 在版本号之后，紧跟着的是常量池的数量，以及若干个常量池表项。
 
@@ -230,7 +233,7 @@ Java的版本号是从45开始的，JDK1.1之后的每个JDK大版本发布主�
 - 常量池容量计数值（u2类型）：<mark>从1开始</mark>，表示常量池中有多少项常量。即constant_pool_count=1表示常量池中有0个常量项。
 - Demo的值为：
 
-![image-20210508234020104](https://gitee.com/vectorx/ImageCloud/raw/master/img/20210508234022.png)
+![image-20210508234020104](https://img-blog.csdnimg.cn/img_convert/a17ef03e0783c664a51491aafde85d2a.png)
 
 其值为0x0016，掐指一算，也就是22。需要注意的是，这实际上只有21项常量。索引为范围是1-21。为什么呢？
 
@@ -288,18 +291,18 @@ com/atguigu/test/Demo这个就是类的全限定名，仅仅是把包名的“.�
 
 <mark>描述符的作用是用来描述字段的数据类型、方法的参数列表（包括数量、类型以及顺序）和返回值</mark>。根据描述符规则，基本数据类型（byte、char、double、float、int、long、short、boolean）以及代表无返回值的void类型都用一个大写字符来表示，而对象类型则用字符L加对象的全限定名来表示，详见下表：
 
-| 标志符 | 含义                                                |
-| :----- | :-------------------------------------------------- |
-| B      | 基本数据类型byte                                    |
-| C      | 基本数据类型char                                    |
-| D      | 基本数据类型double                                  |
-| F      | 基本数据类型float                                   |
-| I      | 基本数据类型int                                     |
-| J      | 基本数据类型long                                    |
-| S      | 基本数据类型short                                   |
-| Z      | 基本数据类型boolean                                 |
-| V      | 代表void类型                                        |
-| L      | 对象类型，比如：`Ljava/lang/Object;`                |
+| 标志符 | 含义                                          |
+| :----- | :-------------------------------------------- |
+| B      | 基本数据类型byte                              |
+| C      | 基本数据类型char                              |
+| D      | 基本数据类型double                            |
+| F      | 基本数据类型float                             |
+| I      | 基本数据类型int                               |
+| J      | 基本数据类型long                              |
+| S      | 基本数据类型short                             |
+| Z      | 基本数据类型boolean                           |
+| V      | 代表void类型                                  |
+| L      | 对象类型，比如：`Ljava/lang/Object;`          |
 | [      | 数组类型，代表一维数组。比如：`double[] is [D |
 
 用描述符来描述方法时，按照先参数列表，后返回值的顺序描述，参数列表按照参数的严格顺序放在一组小括号“()”之内。如方法java.lang.String tostring()的描述符为()Ljava/lang/String; ，方法int abc(int[]x, int y)的描述符为([II)I。
@@ -317,7 +320,7 @@ com/atguigu/test/Demo这个就是类的全限定名，仅仅是把包名的“.�
 
 常量池中每一项常量都是一个表，J0K1.7之后共有14种不同的表结构数据。如下表格所示：
 
-![image-20210509001319088](https://gitee.com/vectorx/ImageCloud/raw/master/img/20210509001320.png)
+![image-20210509001319088](https://img-blog.csdnimg.cn/img_convert/8266c05b4b1506d4c456b427b90b1b75.png)
 
 根据上图每个类型的描述我们也可以知道每个类型是用来描述常量池中哪些内容（主要是字面量、符号引用）的。比如:
 CONSTANT_Integer_info是用来描述常量池中字面量信息的，而且只是整型字面量信息。
@@ -342,7 +345,7 @@ CONSTANT_Integer_info是用来描述常量池中字面量信息的，而且只�
 
 - 一个字节一个字节的解析
 
-![image-20210509002525647](https://gitee.com/vectorx/ImageCloud/raw/master/img/20210509002526.png)
+![image-20210509002525647](https://img-blog.csdnimg.cn/img_convert/f3485b5ca6cb750454230270021fc68a.png)
 
 - 使用javap命令解析：javap-verbose Demo.class或jclasslib工具会更方便。
 
@@ -406,6 +409,7 @@ CONSTANT_Integer_info是用来描述常量池中字面量信息的，而且只�
 | u2   | interfaces[interfaces_count] |
 
 这三项数据来确定这个类的继承关系：
+
 - 类索引用于确定这个类的全限定名
 - 父类索引用于确定这个类的父类的全限定名。由于Java语言不允许多重继承，所以父类索引只有一个，除了java.1ang.Object之外，所有的Java类都有父类，因此除了java.lang.Object外，所有Java类的父类索引都不为e。
 - 接口索引集合就用来描述这个类实现了哪些接口，这些被实现的接口将按implements语句（如果这个类本身是一个接口，则应当是extends语句）后的接口顺序从左到右排列在接口索引集合中。
@@ -415,11 +419,13 @@ CONSTANT_Integer_info是用来描述常量池中字面量信息的，而且只�
 2字节无符号整数，指向常量池的索引。它提供了类的全限定名，如com/atguigu/java1/Demo。this_class的值必须是对常量池表中某项的一个有效索引值。常量池在这个索引处的成员必须为CONSTANT_Class_info类型结构体，该结构体表示这个class文件所定义的类或接口。
 
 ### 1.7.2. super_class（父类索引）
+
 2字节无符号整数，指向常量池的索引。它提供了当前类的父类的全限定名。如果我们没有继承任何类，其默认继承的是java/lang/object类。同时，由于Java不支持多继承，所以其父类只有一个。
 
 super_class指向的父类不能是final。
 
 ### 1.7.3. interfaces
+
 指向常量池索引集合，它提供了一个符号引用到所有已实现的接口
 
 由于一个类可以实现多个接口，因此需要以数组形式保存多个接口的索引，表示接口的每个索引也是一个指向常量池的CONSTANT_Class（当然这里就必须是接口，而不是类）。
@@ -553,6 +559,7 @@ method_info结构可以表示类和接口中定义的所有方法，包括实例
 | u2             | descriptor_index | 描述符索引 | 1                |
 | u2             | attributes_count | 属性计数器 | 1                |
 | attribute_info | attributes       | 属性集合   | attributes_count |
+
 **方法表访问标志**
 
 跟字段表一样，方法表也有访问标志，而且他们的标志有部分相同，部分则不同，方法表的具体访问标志如下：

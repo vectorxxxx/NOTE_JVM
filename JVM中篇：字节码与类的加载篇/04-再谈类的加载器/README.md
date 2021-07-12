@@ -8,9 +8,7 @@
 
 [toc]
 
-# 4. 再谈类的加载器
-
-## 4.1. 概述
+# 1. 概述
 
 类加载器是JVM执行类加载机制的前提。
 
@@ -20,7 +18,7 @@ ClassLoader是Java的核心组件，所有的Class都是由ClassLoader进行加�
 
 ![image-20210501102535142](https://img-blog.csdnimg.cn/img_convert/fb51cabb2218d857a809a59918c5beec.png)
 
-**大厂面试题**
+## 1.1. 大厂面试题
 
 > <mark>蚂蚁金服：</mark>
 >
@@ -72,7 +70,7 @@ ClassLoader是Java的核心组件，所有的Class都是由ClassLoader进行加�
 >
 > 双亲委派机制可以打破吗？为什么
 
-### 4.1.1. 类加载器的分类
+## 1.2. 类加载器的分类
 
 类的加载分类：显式加载 vs 隐式加载
 
@@ -92,7 +90,7 @@ Class clazz=Class.forName("com.test.java.User");
 ClassLoader.getSystemClassLoader().loadClass("com.test.java.Parent"); 
 ```
 
-### 4.1.2. 类加载器的必要性
+## 1.3. 类加载器的必要性
 
 一般情况下，Java开发人员并不需要在程序中显式地使用类加载器，但是了解类加载器的加载机制却显得至关重要。从以下几个方面说：
 
@@ -100,7 +98,7 @@ ClassLoader.getSystemClassLoader().loadClass("com.test.java.Parent");
 - 需要支持类的动态加载或需要对编译后的字节码文件进行加解密操作时，就需要与类加载器打交道了。
 - 开发人员可以在程序中编写自定义类加载器来重新定义类的加载规则，以便实现一些自定义的处理逻辑。
 
-### 4.1.3. 命名空间
+## 1.4. 命名空间
 
 **何为类的唯一性？**
 
@@ -116,7 +114,7 @@ $\color{red}{对于任意一个类，都需要由加载它的类加载器和这�
 
 在大型应用中，我们往往借助这一特性，来运行同一个类的不同版本。
 
-### 4.1.4. 类加载机制的基本特征
+## 1.5. 类加载机制的基本特征
 
 双亲委派模型。但不是所有类加载都遵守这个模型，有的时候，启动类加载器所加载的类型，是可能要加载用户代码的，比如JDK内部的ServiceProvider/ServiceLoader机制，用户可以在标准API框架上，提供自己的实现，JDK也需要提供些默认的参考实现。例如，Java中JNDI、JDBC、文件系统、Cipher等很多方面，都是利用的这种机制，这种情况就不会用双亲委派模型去加载，而是利用所谓的上下文加载器。
 
@@ -124,7 +122,7 @@ $\color{red}{对于任意一个类，都需要由加载它的类加载器和这�
 
 <mark>单一性</mark>，由于父加载器的类型对于子加载器是可见的，所以父加载器中加载过的类型，就不会在子加载器中重复加载。但是注意，类加载器“邻居”间，同一类型仍然可以被加载多次，因为互相并不可见。
 
-### 4.1.5. 类加载器之间的关系
+##  1.6. 类加载器之间的关系
 
 Launcher类核心代码
 
@@ -155,7 +153,7 @@ $\color{red}{注意，这里的Parent类并不是Java语言意义上的继承关
 
 <hr/>
 
-## 4.2. 类的加载器分类
+# 2. 类的加载器分类
 
 JVM支持两种类型的类加载器，分别为引导类加载器（Bootstrap ClassLoader）和自定义类加载器（User-Defined ClassLoader）。
 
@@ -193,7 +191,7 @@ class ChildClassLoader extends ClassLoader{
 
 启动类加载器通过C/C++语言编写，而自定义类加载器都是由Java语言编写的，虽然扩展类加载器和应用程序类加载器是被jdk开发人员使用java语言来编写的，但是也是由java语言编写的，所以也被称为自定义类加载器
 
-### 4.2.1. 引导类加载器
+## 2.1. 引导类加载器
 
 <mark>启动类加载器（引导类加载器，Bootstrap ClassLoader）</mark>
 
@@ -231,7 +229,7 @@ System.out.println(classLoader);
 **执行结果：**
 ![image-20210501170425889](https://img-blog.csdnimg.cn/img_convert/c72286acf05c7f86d1ea24f74e0c2a1e.png)
 
-### 4.2.2. 扩展类加载器
+## 2.2. 扩展类加载器
 
 <mark>扩展类加载器（Extension ClassLoader）</mark>
 
@@ -261,7 +259,7 @@ System.out.print1n(classLoader1); //sun.misc. Launcher$ExtCLassLoader@1540e19d
 
   ![img](https://img-blog.csdnimg.cn/img_convert/b21313ee65acb4f01f1d03b88529e9f5.png)
 
-### 4.2.3. 系统类加载器
+## 2.3. 系统类加载器
 
 <mark>应用程序类加载器（系统类加载器，AppClassLoader）</mark>
 
@@ -275,7 +273,7 @@ System.out.print1n(classLoader1); //sun.misc. Launcher$ExtCLassLoader@1540e19d
 
 ![image-20210501171206453](https://img-blog.csdnimg.cn/img_convert/19dd9595afeb6543593ef14161fc1bb8.png)
 
-### 4.2.4. 用户自定义类加载器
+## 2.4. 用户自定义类加载器
 
 <mark>用户自定义类加载器</mark>
 
@@ -287,7 +285,7 @@ System.out.print1n(classLoader1); //sun.misc. Launcher$ExtCLassLoader@1540e19d
 
 <hr/>
 
-## 4.3. 测试不同的类的加载器
+# 3. 测试不同的类的加载器
 
 每个Class对象都会包含一个定义它的ClassLoader的一个引用。
 **获取ClassLoader的途径**
@@ -365,7 +363,7 @@ public class ClassLoaderTest1{
 
 <hr/>
 
-## 4.4. ClassLoader源码解析
+# 4. ClassLoader源码解析
 
 **ClassLoader与现有类的关系：**
 
@@ -373,7 +371,7 @@ public class ClassLoaderTest1{
 
 除了以上虚拟机自带的加载器外，用户还可以定制自己的类加载器。Java提供了抽象类java.lang.ClassLoader，所有用户自定义的类加载器都应该继承ClassLoader类。
 
-### 4.4.1. ClassLoader的主要方法
+## 4.1. ClassLoader的主要方法
 
 抽象类ClassLoader的主要方法：（内部没有抽象方法）
 
@@ -442,7 +440,7 @@ private final ClassLoader parent;
 
 它也是一个ClassLoader的实例，这个字段所表示的ClassLoader也称为这个ClassLoader的双亲。在类加载的过程中，ClassLoader可能会将某些请求交予自己的双亲处理。
 
-### 4.4.2. SecureClassLoader与URLClassLoader
+## 4.2. SecureClassLoader与URLClassLoader
 
 接着SecureClassLoader扩展了ClassLoader，新增了几个与使用相关的代码源（对代码源的位置及其证书的验证）和权限定义类验证（主要指对class源码的访问权限）的方法，一般我们不会直接跟这个类打交道，更多是与它的子类URLClassLoader有所关联。
 
@@ -450,7 +448,7 @@ private final ClassLoader parent;
 
 ![image-20210501174730756](https://img-blog.csdnimg.cn/img_convert/53f634bada23b3400a303bfcc6e11a31.png)
 
-### 4.4.3. ExtClassLoader与AppClassLoader
+## 4.3. ExtClassLoader与AppClassLoader
 
 了解完URLClassLoader后接着看看剩余的两个类加载器，即拓展类加载器ExtClassLoader和系统类加载器AppClassLoader，这两个类都继承自URLClassLoader，是sun.misc.Launcher的静态内部类。
 
@@ -460,7 +458,7 @@ sun.misc.Launcher主要被系统用于启动主应用程序，ExtClassLoader和A
 
 我们发现ExtClassLoader并没有重写loadClass()方法，这足矣说明其遵循双亲委派模式，而AppClassLoader重载了loadClass()方法，但最终调用的还是父类loadClass()方法，因此依然遵守双亲委派模式。
 
-### 4.4.4. Class.forName()与ClassLoader.loadClass()
+## 4.4. Class.forName()与ClassLoader.loadClass()
 
 **Class.forName()**
 
@@ -484,9 +482,9 @@ sun.misc.Launcher主要被系统用于启动主应用程序，ExtClassLoader和A
 
   <hr/>
 
-## 4.5. 双亲委派模型
+# 5. 双亲委派模型
 
-### 4.5.1. 定义与本质
+## 5.1. 定义与本质
 
 类加载器用来把类加载到Java虚拟机中。从JDK1.2版本开始，类的加载过程采用双亲委派机制，这种机制能更好地保证Java平台的安全。
 
@@ -502,7 +500,7 @@ sun.misc.Launcher主要被系统用于启动主应用程序，ExtClassLoader和A
 
 ![img](https://img-blog.csdnimg.cn/img_convert/c1526b63e95852b48551b4f136ebbd6f.png)
 
-### 4.5.2. 优势与劣势
+## 5.2. 优势与劣势
 
 **双亲委派机制优势**
 
@@ -546,7 +544,7 @@ sun.misc.Launcher主要被系统用于启动主应用程序，ExtClassLoader和A
 
 $\color{red}{由于Java虚拟机规范并没有明确要求类加载器的加载机制一定要使用双亲委派模型，只是建议采用这种方式而已。}$比如在Tomcat中，类加载器所采用的加载机制就和传统的双亲委派模型有一定区别，当缺省的类加载器接收到一个类的加载任务时，首先会由它自行加载，当它加载失败时，才会将类的加载任务委派给它的超类加载器去执行，这同时也是Serylet规范推荐的一种做法。
 
-### 4.5.3. 破坏双亲委派机制
+## 5.3. 破坏双亲委派机制
 
 双亲委派模型并不是一个具有强制性约束的模型，而是Java设计者推荐给开发者们的类加载器实现方式。
 
@@ -600,7 +598,7 @@ IBM公司主导的JSR-291(即OSGiR4.2)实现模块化热部署的关键是它自
 
 正如：OSGi中的类加载器的设计不符合传统的双亲委派的类加载器架构，且业界对其为了实现热部署而带来的额外的高复杂度还存在不少争议，但对这方面有了解的技术人员基本还是能达成一个共识，认为**OSGi中对类加载器的运用是值得学习的，完全弄懂了OSGi的实现，就算是掌握了类加载器的精粹。**
 
-### 4.5.4. 热替换的实现
+## 5.4. 热替换的实现
 
 热替换是指在程序的运行过程中，不停止服务，只通过替换程序文件来修改程序的行为。$\color{red}{热替换的关键需求在于服务不能中断，修改必须立即表现正在运行的系统之中。}$基本上大部分脚本语言都是天生支持热替换的，比如：PHP，只要替换了PHP源文件，这种改动就会立即生效，而无需重启Web服务器。
 
@@ -613,7 +611,7 @@ IBM公司主导的JSR-291(即OSGiR4.2)实现模块化热部署的关键是它自
 ![image-20210501182003439](https://img-blog.csdnimg.cn/img_convert/9ae876265c85af4e431932647993dab7.png)
 <hr/>
 
-## 4.6. 沙箱安全机制
+# 6. 沙箱安全机制
 
 沙箱安全机制
 
@@ -628,13 +626,13 @@ $\color{red}{Java安全模型的核心就是Java沙箱（sandbox）}$。什么�
 
 所有的Java程序运行都可以指定沙箱，可以定制安全策略。
 
-### 4.6.1. JDK1.0时期
+## 6.1. JDK1.0时期
 
 在Java中将执行程序分成本地代码和远程代码两种，本地代码默认视为可信任的，而远程代码则被看作是不受信的。对于授信的本地代码，可以访问一切本地资源。而对于非授信的远程代码在早期的Java实现中，安全依赖于**沙箱（Sandbox）机制**。如下图所示JDK1.0安全模型
 
 ![image-20210501182608205](https://img-blog.csdnimg.cn/img_convert/71caf905a0ca13866e24419b7faa14ee.png)
 
-### 4.6.2. JDK1.1时期
+## 6.2. JDK1.1时期
 
 JDK1.0中如此严格的安全机制也给程序的功能扩展带来障碍，比如当用户希望远程代码访问本地系统的文件时候，就无法实现。
 
@@ -644,13 +642,13 @@ JDK1.0中如此严格的安全机制也给程序的功能扩展带来障碍，�
 
 ![image-20210501182626963](https://img-blog.csdnimg.cn/img_convert/b93f0829e8340131a49738f8843307e4.png)
 
-### 4.6.3. JDK1.2时期
+## 6.3. JDK1.2时期
 
 在Java1.2版本中，再次改进了安全机制，增加了**代码签名**。不论本地代码或是远程代码，都会按照用户的安全策略设定，由类加载器加载到虚拟机中权限不同的运行空间，来实现差异化的代码执行权限控制。如下图所示JDK1.2安全模型：
 
 ![image-20210501182652378](https://img-blog.csdnimg.cn/img_convert/81919ed70977f2b57ef5a11481c68abc.png)
 
-### 4.6.4. JDK1.6时期
+## 6.4. JDK1.6时期
 
 当前最新的安全机制实现，则引入了**域（Domain）**的概念。
 
@@ -659,9 +657,9 @@ JDK1.0中如此严格的安全机制也给程序的功能扩展带来障碍，�
 ![image-20210501182740197](https://img-blog.csdnimg.cn/img_convert/cf22059daec45f370ae3afb33b870c1f.png)
 <hr/>
 
-## 4.7. 自定义类的加载器
+# 7. 自定义类的加载器
 
-### 4.7.1. 为什么要自定义类加载器？
+## 7.1. 为什么要自定义类加载器？
 
 - $\color{red}{隔离加载类}$
 
@@ -688,7 +686,7 @@ JDK1.0中如此严格的安全机制也给程序的功能扩展带来障碍，�
 
 在一般情况下，使用不同的类加载器去加载不同的功能模块，会提高应用程序的安全性。但是，如果涉及Java类型转换，则加载器反而容易产生不美好的事情。在做Java类型转换时，只有两个类型都是由同一个加载器所加载，才能进行类型转换，否则转换时会发生异常。
 
-### 4.7.2. 实现方式
+## 7.2. 实现方式
 
 Java提供了抽象类java.lang.ClassLoader，所有用户自定义的类加载器都应该继承ClassLoader类。
 
@@ -710,7 +708,7 @@ Java提供了抽象类java.lang.ClassLoader，所有用户自定义的类加载�
 
 <hr/>
 
-## 4.8. Java9新特性
+# 8. Java9新特性
 
 为了保证兼容性，JDK9没有从根本上改变三层类加载器架构和双亲委派模型，但为了模块化系统的顺利运行，仍然发生了一些值得被注意的变动。
 
@@ -724,7 +722,7 @@ Java提供了抽象类java.lang.ClassLoader，所有用户自定义的类加载�
 
 ![img](https://img-blog.csdnimg.cn/img_convert/323cfcda53f98034ed15372c0ea43685.png)
 
-		如果有程序直接依赖了这种继承关系，或者依赖了URLClassLoader类的特定方法，那代码很可能会在JDK9及更高版本的JDK中崩溃。
+​		如果有程序直接依赖了这种继承关系，或者依赖了URLClassLoader类的特定方法，那代码很可能会在JDK9及更高版本的JDK中崩溃。
 
 3. 在Java9中，类加载器有了名称。该名称在构造方法中指定，可以通过getName()方法来获取。平台类加载器的名称是platform，应用类加载器的名称是app。类加载器的名称在调试与类加载器相关的问题时会非常有用。
 4. 启动类加载器现在是在jvm内部和java类库共同协作实现的类加载器（以前是C++实现），但为了与之前代码兼容，在获取启动类加载器的场景中仍然会返回null，而不会得到BootClassLoader实例。
@@ -756,3 +754,4 @@ public class ClassLoaderTest {
     }
 }
 ```
+
