@@ -6,7 +6,7 @@
 >
 > https://github.com/uxiahnan/NOTE_JVM
 
-@[toc]
+[toc]
 
 # 1. 概述篇
 
