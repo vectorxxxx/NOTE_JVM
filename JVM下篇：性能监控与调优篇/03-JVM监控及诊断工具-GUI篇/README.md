@@ -251,7 +251,7 @@ echo 打印参数，和linux里的echo命令类似
 grep 匹配查找，和linux里的gep命令类似
 tee 复制标隹输入到标准输出和指定的文件，和linux里的tee命令类似
 pwd 返回当前的工作目录，和linux命令类似
-cs 清空当前屏幕区域
+cls 清空当前屏幕区域
 session 查看当前会话的信息
 reset 重置增强类，将被 Arthas增强过的类全部还原, Arthas服务端关闭时会重置所有增强过的类
 version 输出当前目标Java进程所加载的 Arthas版本号
